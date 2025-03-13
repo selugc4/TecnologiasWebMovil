@@ -1,0 +1,52 @@
+extends layout
+include _includes/sharedHTMLfunctions
+
+block content
+    .row.banner.border-bottom.mb-4
+        .col-12 
+            h1 Starcups
+    .row
+        .col-12.col-lg-9
+            .row
+                .col-12.col-md-6
+                    p.rating
+                        +outputRating(location.rating)
+                    p.address #{location.addres}
+                    .card 
+                        .card-body 
+                            h2.card-title Opening hours
+                            each day in location.openingTimes
+                                if day.closed
+                                    p.card-text #{day.days}: Closed
+                                else
+                                    p.card-text #{day.days}: Open
+                    .card
+                        .card-body 
+                            h2.card-title Facilities
+                            p.card-text
+                                each facility in location.facilities
+                                    span.badge.bg-warning #{facility}
+                                    | 
+                .col-12.col-md-6
+                    .card
+                        .card-body
+                            h2.card-title Location map
+                            iframe.w-100(height='250', src='https://www.google.com/maps/embed/v1/view?key=AIzaSyCG_7fE9hp3i0g3HEqq90jy85LOcv3toOc&center=' + location.coords.lat + ',' + location.coords.lng + '&zoom=17')
+            .row
+                .col-12
+                    .card
+                        .card-body
+                            .d-flex.justify-content-between.align-items-center
+                                h2.card-title Customer reviews
+                                a.btn.btn-primary(href='/location/review/new') Add review
+                            each review in location.reviews
+                                .review.mb-3
+                                    .review-header
+                                        span.rating
+                                            +outputRating(review.rating)
+                                        span.ms-2 #{review.author}
+                                        small.text-muted.ms-2 #{review.createdOn}
+                                    p #{review.reviewText}
+        .col-12.col-lg-3
+            p.lead= location.name + '' + sidebar.context 
+            p= callToAction
