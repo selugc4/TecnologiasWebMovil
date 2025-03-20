@@ -3,13 +3,13 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+const mongoose = require("mongoose");
 var indexRouter = require("./app_server/routes/index");
 var usersRouter = require("./app_server/routes/users");
-
+require("./app_server/models")
 var app = express();
-
-// view engine setup
+ const dbURI = "mongodb://localhost/Loc8r";
+ mongoose.connect(dbURI);
 app.set("views", path.join(__dirname, "app_server", "views"));
 app.set("view engine", "pug");
 
