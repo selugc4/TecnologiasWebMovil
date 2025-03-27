@@ -27,5 +27,5 @@ const locationSchema = new mongoose.Schema({
     openingTimes: [openingTimesSchema],
     reviews: [reviewSchema]
 });
-locationSchema.index({coords: "2dsphere"})
-mongoose.model("Location", locationSchema)
+locationSchema.index({coords: "2dsphere"});
+mongoose.model("locations", locationSchema);
